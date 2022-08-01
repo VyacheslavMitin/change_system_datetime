@@ -1,8 +1,13 @@
 # Модуль смены времени в системе
-
+import time
 import pyautogui
 import win32api
+import os
 from datetime import datetime
+
+
+def network_working(mode='enable', name="Kassa"):
+    os.system(f'netsh interface set interface "{name}" {mode}')
 
 
 def input_datetime():
@@ -34,4 +39,8 @@ def win_set_time(time_tuple=input_datetime()):
 
 
 if __name__ == '__main__':
+    network_working(mode='disable')
+    time.sleep(1)
     win_set_time()
+    time.sleep(3)
+    network_working(mode='enable')
